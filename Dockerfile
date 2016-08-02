@@ -11,6 +11,9 @@ RUN apk add php7 php7-dev php7-fpm php7-json php7-zlib php7-xml php7-pdo php7-ph
 # Install some extra stuff
 RUN apk add less mysql mariadb-client curl nano bash git --repository http://nl.alpinelinux.org/alpine/edge/testing/
 
+# Create system db's
+RUN mysql_install_db --user=mysql
+
 # php alias
 RUN ln -s /usr/bin/php7 /usr/bin/php
 
@@ -33,10 +36,9 @@ COPY config/supervisord.conf /etc/supervisor/conf.d/supervisord.conf
 RUN mkdir -p /var/www/html
 WORKDIR /var/www/html
 
-COPY docker-entrypoint.sh /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-entrypoint.sh
-ENTRYPOINT ["/usr/local/bin/docker-entrypoint.sh"]
+COPY init.sh /usr/local/bin/
+RUN chmod +x /usr/local/bin/init.sh
 
 EXPOSE 80 443 3306
 
-CMD ["/usr/bin/supervisord", "-c", "/etc/supervisor/conf.d/supervisord.conf"]
+CMD ["init.sh"]
