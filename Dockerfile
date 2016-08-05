@@ -1,5 +1,7 @@
 FROM alpine:latest
 
+#this image will only work with wp 3.9 up
+
 # Install base packages
 RUN apk --update add mariadb nginx supervisor --repository http://nl.alpinelinux.org/alpine/edge/testing/
 
