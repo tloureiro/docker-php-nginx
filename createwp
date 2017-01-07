@@ -1,0 +1,3 @@
+wp core download
+wp core config --dbname=wordpress --dbuser=admin --dbpass=admin;
+wp db create

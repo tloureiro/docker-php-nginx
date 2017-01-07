@@ -1,0 +1,10 @@
+lampp:
+  image: lempp2017
+  ports:
+    - 80:80
+    - 3306:3306  
+  
+  volumes:
+    - ./wordpress:/var/www/html
+    - ./mysql:/var/lib/mysql
+    - ./dump:/dump
